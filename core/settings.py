@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-46iysz+(x+92)kzxm83vgs&sb&7x98d3(a2qu7^jxv_omwemw&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'autenticacao',
     'cliente',
+    'servico',
 ]
 
 MIDDLEWARE = [
