@@ -19,7 +19,7 @@ class Servico(models.Model):
 class ServicoFeito(models.Model):
     cliente = models.ForeignKey(Cliente,on_delete=models.CASCADE)
     servico = models.ManyToManyField(Servico)
-    valor_total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0, ) # type: ignore
+    valor_total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0) # type: ignore
     data = models.DateField()
     pago = models.BooleanField(default=False)
     

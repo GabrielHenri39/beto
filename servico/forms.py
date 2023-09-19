@@ -1,52 +1,46 @@
-from django import forms
 from django.forms import ModelForm
-from .models import Servico, ServicoFeito
-
-class DateInput(forms.DateInput):
-    def __init__(self, attrs=None):
-        attrs = attrs or {}
-        attrs['type'] = 'date'
-        super().__init__(attrs)
-    input_type = 'date'
-
+from django import forms
+from .models import Servico , ServicoFeito
+from datetime import date
+from .form_s import ServicoCheckbox
+# Here are some code snippets from other files of the repo:
 
 class ServicoForm(ModelForm):
-
     class Meta:
         model = Servico
         fields = ['nome','preco']
-
-        Widget ={
-            'nome': forms.TextInput(attrs={'class':'form-control'}),
-            # e numero decimal
-            'preco': forms.NumberInput(attrs={'class':'form-control'}),
-        
-        
-        
+        widgets = {
+            'nome': forms.TextInput(attrs={'class': 'form-control'}),
+            'preco': forms.NumberInput(attrs={'class': 'form-control'}),
         }
 
-class ServicoFeitoForm(ModelForm):
+
+class ServicoFeitoForm(forms.ModelForm):
     class Meta:
         model = ServicoFeito
-        fields = ['cliente','servico','data','valor_total', 'pago']
-        execute = ['valor_total']
+        fields = ['cliente', 'servico', 'data', 'valor_total', 'pago']
         widgets = {
-            'cliente': forms.Select(attrs={'class':'form-control'}),
-            'servico': forms.CheckboxSelectMultiple(),
-            'data': forms.DateInput(attrs={'class':'form-control' , 'type':'date'}), 
-            'valor_total': forms.NumberInput(attrs={'class':'form-control'}),
+            'cliente': forms.Select(attrs={'class': 'form-control'}),
+            'servico': ServicoCheckbox(),
+            'data': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'value': date.today}),
+            'valor_total': forms.NumberInput(attrs={'class': 'form-control'}),
             'pago': forms.CheckboxInput(),
         }
-    #soma dos servicos e limpar os campos
-    def clean(self):
-        cleaned_data = super().clean()
-        servicos = cleaned_data.get('servico')
-        valor_total = 0
-        for servico in servicos: # type: ignore
-            valor_total += servico.preco
-        cleaned_data['valor_total'] = valor_total
-        return cleaned_data
-    
 
-    
-   
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+
+    #     # Recupere as escolhas do campo 'servico' e atribua o atributo 'data-preco' com base no ID do serviço
+    #     for field_name, field in self.fields.items():
+    #         if field_name == 'servico':
+    #             servico_ids = [str(choice[0]) for choice in field.choices]
+    #             for servico_id in servico_ids:
+    #                 try:
+    #                     servico = Servico.objects.get(id=servico_id)
+    #                     field.widget.attrs[f'data-preco-{servico_id}'] = servico.preco
+    #                 except Servico.DoesNotExist:
+    #                     pass
+
+
+
+

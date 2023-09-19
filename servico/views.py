@@ -1,23 +1,32 @@
 from django.shortcuts import render
 from .forms import ServicoForm, ServicoFeitoForm
-from .models import Servico, ServicoFeito
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-
+@login_required(login_url='auth/login') # type: ignore
 def test(request):
     if request.method == 'GET':
-
-        form2 = ServicoFeitoForm()
-        context = {
-            
-            'form2': form2
-        }
-        return render(request, 'test.html', context)
+       form = ServicoForm() 
+       return render(request, 'test.html', {'form': form})
     
-    if request.method == 'POST':
-        form2 = ServicoFeitoForm(request.POST)
-        if form2.is_valid():
-            form2.save()
-            return render(request, 'test.html', {'form2': form2})
+    elif request.method == 'POST':
+        form = ServicoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'test.html', {'form': form})
         else:
-            return render(request, 'test.html', {'form2': form2})
+            return render(request, 'test.html', {'form': form})
+    
+@login_required(login_url='auth/login')    # type: ignore
+def test2(request):
+    if request.method == 'GET':
+       form = ServicoFeitoForm() 
+       
+       return render(request, 'test2.html', {'form': form})
+    
+    elif request.method == 'POST':
+        form = ServicoFeitoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'test2.html', {'form': form})
+        else:
+            return render(request, 'test2.html', {'form': form})

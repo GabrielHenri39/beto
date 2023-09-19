@@ -11,3 +11,8 @@ body {
     --differential-color: #E96363;
 
 }
+
+.checkbox-column {
+    display: block;
+    margin-bottom: 10px;
+}

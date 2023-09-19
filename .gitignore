@@ -162,3 +162,4 @@ cython_debug/
 #.idea/
 /.vscode
 /servico/templates/test.html
+/servico/templates/test2.html
