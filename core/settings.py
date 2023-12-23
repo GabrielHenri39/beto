@@ -104,14 +104,19 @@ USE_I18N = True
 
 USE_TZ = True
 
+DATETIME_FORMAT = r'%d/%m/%Y'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
+
 STATIC_ROOT = os.path.join('static')
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 MEDIA_URL = '/media/'
 
 
@@ -134,3 +139,4 @@ MESSAGE_TAGS = {
     constants.WARNING: 'alert-warning',
     constants.ERROR: 'alert-danger',
 }
+

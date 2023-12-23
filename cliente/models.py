@@ -1,9 +1,11 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 
 
 class Cliente(models.Model):
+
     
     nome = models.CharField(max_length=100)
     telefone = models.CharField(max_length=15)
@@ -12,14 +14,21 @@ class Cliente(models.Model):
     def __str__(self):
         return self.nome
     
-
-    
+        
 class Agendamento(models.Model):
     
+    status_choices = ( 
+        ('A', 'Aberto'),
+        ('F', 'Finalizado'),
+        ('C', 'Cancelado'),)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     data = models.DateField()
     horario = models.TimeField()
-    
+    status = models.CharField(max_length=1, choices=status_choices, default='A')
+
     def __str__(self):
-        return self.cliente.nome 
+        return self.cliente.nome
+
+    
+    
     

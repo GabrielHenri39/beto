@@ -8,16 +8,16 @@ from .models import Servico, ServicoFeito
 
 @admin.register(Servico)
 class ServicoAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'preco']
-    search_fields = ['nome']
-    list_filter = ['nome', 'preco']
+    list_display = ['servico', 'preco']
+    search_fields = ['servico']
+    list_filter = ['servico', 'preco']
     list_editable = ['preco']
 
 @admin.register(ServicoFeito)
 class ServicoFeitoAdmin(admin.ModelAdmin):
     list_display = ['cliente', 'valor_total', 'data', 'pago']
-    search_fields = ['servico__nome', 'cliente__nome']
-    list_filter = ['servico__nome', 'cliente__nome', 'data', 'pago']
+    search_fields = ['servico__servico', 'cliente__nome']
+    list_filter = ['servico__servico', 'cliente__nome', 'data', 'pago']
     list_editable = ['pago']
 
     def valor_total_display(self, obj):

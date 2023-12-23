@@ -5,12 +5,12 @@ from cliente.models import Cliente
 
 
 class Servico(models.Model):
-    nome = models.CharField(max_length=50)
+    servico = models.CharField(max_length=50, verbose_name='Serviço')
     preco = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Preço')
     
 
     def __str__(self):
-        return self.nome
+        return self.servico
     
     class Meta:
         verbose_name_plural = "Serviços"
